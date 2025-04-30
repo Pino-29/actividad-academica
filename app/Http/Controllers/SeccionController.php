@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Seccion;
 use App\Http\Requests\StoreSeccionRequest;
 use App\Http\Requests\UpdateSeccionRequest;
+use Illuminate\Support\Facades\Gate;
 
 class SeccionController extends Controller
 {
@@ -13,7 +14,13 @@ class SeccionController extends Controller
      */
     public function index()
     {
-        //
+        Gate::authorize('viewAny', Seccion::class);
+
+        // $secciones = Seccion::all();
+    
+        return view('secciones.index', [
+            'secciones' => Seccion::all(),
+        ]);
     }
 
     /**
