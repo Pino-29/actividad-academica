@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlumnoController;
+use App\Http\Controllers\SeccionController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 

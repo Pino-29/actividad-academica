@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Seccion;
+use App\Models\Alumno;
 use App\Http\Requests\StoreSeccionRequest;
 use App\Http\Requests\UpdateSeccionRequest;
 use Illuminate\Support\Facades\Gate;
@@ -44,7 +45,13 @@ class SeccionController extends Controller
      */
     public function show(Seccion $seccion)
     {
-        //
+            // Get all alumnos to show in the select dropdown
+            $alumnos = Alumno::all();
+        
+            // Get IDs of already enrolled alumnos (for select pre-fill)
+            $inscritos = $seccion->alumnos->pluck('id')->toArray();
+        
+            return view('secciones.show', compact('seccion', 'alumnos', 'inscritos'));
     }
 
     /**

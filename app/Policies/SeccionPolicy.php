@@ -13,7 +13,7 @@ class SeccionPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->email == 'samuel@test.com';
     }
 
     /**
@@ -21,7 +21,7 @@ class SeccionPolicy
      */
     public function view(User $user, Seccion $seccion): bool
     {
-        return false;
+        return $user->email == 'samuel@test.com';
     }
 
     /**
