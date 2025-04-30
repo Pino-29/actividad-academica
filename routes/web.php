@@ -26,4 +26,11 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 });
 
+Route::resource('seccion', SeccionController::class)
+     ->middleware(['auth']);
+
+Route::post('seccion/{seccion}/asignar-alumnos', [SeccionController::class, 'asignarAlumnos'])
+     ->name('seccion.asignar-alumnos')
+     ->middleware(['auth']);
+
 require __DIR__.'/auth.php';
