@@ -7,6 +7,7 @@ use App\Models\Alumno;
 use App\Http\Requests\StoreSeccionRequest;
 use App\Http\Requests\UpdateSeccionRequest;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Http\Request;
 
 class SeccionController extends Controller
 {
@@ -76,5 +77,23 @@ class SeccionController extends Controller
     public function destroy(Seccion $seccion)
     {
         //
+    }
+
+    public function asignarAlumnos(Request $request, Seccion $seccion): \Illuminate\Http\RedirectResponse
+    {
+        Gate::authorize('asignar-seccion');  // if you have this policy
+
+        // validate input
+        $data = $request->validate([
+            'alumnos' => 'array',
+            'alumnos.*' => 'exists:alumnos,id',
+        ]);
+
+        // sync pivot table
+        $seccion->alumnos()->sync($data['alumnos'] ?? []);
+
+        return redirect()
+            ->route('seccion.show', $seccion)
+            ->with('success', 'Lista de alumnos actualizada.');
     }
 }
