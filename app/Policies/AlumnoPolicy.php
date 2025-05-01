@@ -21,7 +21,8 @@ class AlumnoPolicy
      */
     public function view(User $user, Alumno $alumno): bool
     {
-        return $alumno->correo == 'jewell16@example.com';
+        return $user->email == 'samuel@test.com';
+        // return $alumno->correo == 'jewell16@example.com';
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlumnoController;
+use App\Http\Controllers\SeccionController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -25,5 +26,12 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/password', 'settings.password')->name('settings.password');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 });
+
+Route::resource('seccion', SeccionController::class)
+     ->middleware(['auth']);
+
+Route::post('seccion/{seccion}/asignar-alumnos', [SeccionController::class, 'asignarAlumnos'])
+     ->name('seccion.asignar-alumnos')
+     ->middleware(['auth']);
 
 require __DIR__.'/auth.php';
